@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bexi80h6y36md"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_i8mgf"]
+[ext_resource type="PackedScene" uid="uid://brxt5p44xu0hr" path="res://scenes/projectile.tscn" id="2_eqi6e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5om3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_idb03"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kv8n"]
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(2.13357, 2.10519)
+script = ExtResource("1_i8mgf")
+projectile_scene = ExtResource("2_eqi6e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h5om3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_idb03")
+
+[node name="SelfDamage" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="SelfDamage"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_1kv8n")
+
+[node name="Health" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.744088, 0.034858, 0, 1)
+self_modulate = Color(0.78433, 0, 0.0569644, 1)
+offset_left = -21.0
+offset_top = -22.0
+offset_right = 21.0
+offset_bottom = -13.0
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="player_died" from="." to="." method="_on_player_died"]
+[connection signal="body_entered" from="SelfDamage" to="." method="_on_self_damage_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

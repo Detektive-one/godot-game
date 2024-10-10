@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3t6lgxwpfyhl"]
+
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="1_wd3u2"]
+[ext_resource type="PackedScene" uid="uid://ct858jvrj3krb" path="res://scenes/enemy.tscn" id="2_1ytv1"]
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_wd3u2")
+enemy = ExtResource("2_1ytv1")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

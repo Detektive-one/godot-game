@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct858jvrj3krb"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_go5o0"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uwrey"]
+size = Vector2(20, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d6e4m"]
+radius = 12.0588
+height = 24.1176
+
+[node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(2.07317, 2.12821)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_go5o0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.000245483, 0.000245483, 0.000245483, 1)
+rotation = 1.56179
+texture = SubResource("PlaceholderTexture2D_uwrey")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_d6e4m")

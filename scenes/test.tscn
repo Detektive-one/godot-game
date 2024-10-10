@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://bor12ft80iy2b"]
+
+[ext_resource type="PackedScene" uid="uid://bexi80h6y36md" path="res://scenes/player.tscn" id="1_1awco"]
+[ext_resource type="Texture2D" uid="uid://bnyyyqpmed0eh" path="res://aerial-green-grass-background_1308-28415.tres" id="1_ply54"]
+[ext_resource type="PackedScene" uid="uid://d3t6lgxwpfyhl" path="res://scenes/spawner.tscn" id="2_w427s"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="4_idn02"]
+[ext_resource type="Script" path="res://scripts/UI.gd" id="5_23nbu"]
+
+[node name="test" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(506.5, 300.5)
+scale = Vector2(1.36622, 0.995033)
+texture = ExtResource("1_ply54")
+
+[node name="Spawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_w427s")]
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("1_1awco")]
+position = Vector2(127, 69)
+
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("4_idn02")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 6.0
+offset_right = 1.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_23nbu")
+
+[node name="MessageLabel" type="Label" parent="UI/Control"]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 242.0
+offset_right = 773.0
+offset_bottom = 311.0
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.43
+anchor_bottom = 0.148
+offset_left = 760.0
+offset_top = 15.0
+offset_right = 466.0
+offset_bottom = -16.8
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="UI/Control"]
+layout_mode = 0
+offset_left = 442.0
+offset_top = -6.0
+offset_right = 578.0
+offset_bottom = 66.0
+
+[node name="StartButton" type="Button" parent="UI/Control"]
+layout_mode = 0
+offset_left = 863.0
+offset_top = 519.0
+offset_right = 954.0
+offset_bottom = 573.0
+text = "START"
+
+[connection signal="pressed" from="UI/Control/StartButton" to="UI/Control" method="_on_start_button_pressed"]
